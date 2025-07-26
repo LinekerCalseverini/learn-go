@@ -1,0 +1,37 @@
+package bookstore
+
+import (
+	"errors"
+	"fmt"
+)
+
+type Book struct {
+	ID     int
+	Title  string
+	Author string
+	Copies int
+}
+
+func Buy(b Book) (Book, error) {
+	if b.Copies == 0 {
+		return Book{}, errors.New("no copies left")
+	}
+	b.Copies--
+	return b, nil
+}
+
+func GetAllBooks(catalog map[int]Book) []Book {
+	result := []Book{}
+	for _, book := range catalog {
+		result = append(result, book)
+	}
+	return result
+}
+
+func GetBook(catalog map[int]Book, id int) (Book, error) {
+	book, ok := catalog[id]
+	if !ok {
+		return book, fmt.Errorf("no book with id %d found", id)
+	}
+	return book, nil
+}
