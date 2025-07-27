@@ -22,16 +22,18 @@ func Buy(b Book) (Book, error) {
 	return b, nil
 }
 
-func GetAllBooks(catalog map[int]Book) []Book {
+type Catalog map[int]Book
+
+func (c Catalog) GetAllBooks() []Book {
 	result := []Book{}
-	for _, book := range catalog {
+	for _, book := range c {
 		result = append(result, book)
 	}
 	return result
 }
 
-func GetBook(catalog map[int]Book, id int) (Book, error) {
-	book, ok := catalog[id]
+func (c Catalog) GetBook(id int) (Book, error) {
+	book, ok := c[id]
 	if !ok {
 		return book, fmt.Errorf("no book with id %d found", id)
 	}
