@@ -127,3 +127,17 @@ func TestGetBookNotExists(t *testing.T) {
 		)
 	}
 }
+
+func TestNetPriceCents(t *testing.T) {
+	t.Parallel()
+	book := bookstore.Book{
+		Title:           "For the Love of Go",
+		PriceCents:      4000,
+		DiscountPercent: 25,
+	}
+	want := 3000
+	got := book.NetPriceCents()
+	if want != got {
+		t.Errorf("book.NetPriceCents(%v): want %v, got %v", book, want, got)
+	}
+}
